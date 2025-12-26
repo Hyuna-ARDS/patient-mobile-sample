@@ -7,22 +7,23 @@ import type { InterpretationRequestDetailRes } from "../services/InterpretationS
  * 인증이 없어도 에러를 처리하도록 수정
  */
 export function useInterpretationRequestDetail(interpretationRequestId: number | null) {
-  return useQuery<InterpretationRequestDetailRes | undefined>({
+  return useQuery<InterpretationRequestDetailRes | null>({
     queryKey: ["interpretationRequestDetail", interpretationRequestId],
     queryFn: async () => {
       if (!interpretationRequestId) {
-        return undefined;
+        return null;
       }
       try {
-        return await interpretationApiService.getInterpretationRequestDetail(interpretationRequestId);
+        const result = await interpretationApiService.getInterpretationRequestDetail(interpretationRequestId);
+        return result || null;
       } catch (error: any) {
-        // 인증 에러(401) 시에도 undefined 반환하여 로그인 없이 접근 가능하도록 함
+        // 인증 에러(401) 시에도 null 반환하여 로그인 없이 접근 가능하도록 함
         if (error?.status === 401 || error?.code === 401) {
           console.log("인증이 필요합니다. 로그인 없이 접근합니다.");
-          return undefined;
+          return null;
         }
         console.warn(`Failed to fetch interpretation request detail for ID ${interpretationRequestId}:`, error);
-        return undefined;
+        return null;
       }
     },
     enabled: !!interpretationRequestId,

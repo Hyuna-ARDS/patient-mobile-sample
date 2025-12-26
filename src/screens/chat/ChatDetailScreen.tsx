@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {
   Alert,
   Keyboard,
   TouchableWithoutFeedback,
+  Animated,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -23,6 +24,10 @@ import ChatHistoryPanel from "../../components/ChatHistoryPanel";
 import { useInterpretationRequestDetail } from "../../hooks/useInterpretationRequestDetail";
 import { chatApiService } from "../../services/ChatService";
 import { useQueryClient } from "@tanstack/react-query";
+import * as ImagePicker from "expo-image-picker";
+import * as DocumentPicker from "expo-document-picker";
+import { interpretationApiService } from "../../services/InterpretationService";
+import { Ionicons } from "@expo/vector-icons";
 
 type RouteProp = NavigationRouteProp<ChatStackParamList, "ChatDetail">;
 
@@ -62,10 +67,14 @@ export default function ChatDetailScreen() {
   const [inputText, setInputText] = useState("");
   const [showLabAnalysisPrompt, setShowLabAnalysisPrompt] = useState(true);
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
+  const [showUploadPanel, setShowUploadPanel] = useState(false);
   const [sending, setSending] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [mockMessages, setMockMessages] = useState<Message[]>([]);
   const flatListRef = useRef<FlatList>(null);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const slideAnim = useMemo(() => new Animated.Value(0), []);
   
   // 탭바 높이 계산 (navigation/index.tsx와 동일)
   const tabBarHeight = Platform.OS === "ios" ? Math.max(insets.bottom, 20) + 60 - 8 : 60;
@@ -156,15 +165,17 @@ export default function ChatDetailScreen() {
   // 키보드 이벤트 리스너
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow",
+      (e) => {
         setKeyboardVisible(true);
+        setKeyboardHeight(e.endCoordinates.height);
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide",
       () => {
         setKeyboardVisible(false);
+        setKeyboardHeight(0);
       }
     );
 
@@ -213,7 +224,30 @@ export default function ChatDetailScreen() {
     };
 
     if (reportId) {
-      // 검사지가 있는 경우: API로 메시지 전송
+      // Mock reportId (996-999)인 경우 API 호출하지 않고 mock 응답 생성
+      const isMockReport = reportId >= 996 && reportId <= 999;
+      
+      if (isMockReport) {
+        // Mock 응답 생성
+        setMockMessages((prev) => [...prev, userMessage]);
+        
+        setTimeout(() => {
+          const mockResponse: Message = {
+            id: `assistant-${Date.now()}`,
+            type: "assistant",
+            content: "검사 결과에 대해 궁금하신 점이 있으시군요. 추가 검사와 전문의 상담을 권장드립니다. 더 자세한 정보가 필요하시면 언제든지 질문해주세요.",
+            timestamp: new Date().toLocaleTimeString("ko-KR", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          };
+          setMockMessages((prev) => [...prev, mockResponse]);
+          setSending(false);
+        }, 1000);
+        return;
+      }
+      
+      // 실제 검사지인 경우: API로 메시지 전송
       try {
         await chatApiService.sendMessage(reportId, messageText);
         
@@ -264,8 +298,123 @@ export default function ChatDetailScreen() {
     }
   };
 
+  // 업로드 패널 토글 애니메이션
+  useEffect(() => {
+    if (showUploadPanel) {
+      Animated.spring(slideAnim, {
+        toValue: 1,
+        useNativeDriver: true,
+        tension: 50,
+        friction: 7,
+      }).start();
+    } else {
+      Animated.spring(slideAnim, {
+        toValue: 0,
+        useNativeDriver: true,
+        tension: 50,
+        friction: 7,
+      }).start();
+    }
+  }, [showUploadPanel, slideAnim]);
+
+  const handleUploadButtonPress = () => {
+    setShowUploadPanel(!showUploadPanel);
+  };
+
+  const handleTakePhoto = async () => {
+    setShowUploadPanel(false);
+    try {
+      const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+      if (permissionResult.granted === false) {
+        Alert.alert("권한 필요", "카메라 권한이 필요합니다.");
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+      });
+
+      if (!result.canceled && result.assets[0]) {
+        await uploadFile(result.assets[0].uri, "image");
+      }
+    } catch (error) {
+      console.error("카메라 오류:", error);
+      Alert.alert("오류", "사진 촬영 중 오류가 발생했습니다.");
+    }
+  };
+
+  const handleSelectFile = async () => {
+    setShowUploadPanel(false);
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: ["image/*", "application/pdf"],
+        copyToCacheDirectory: true,
+        multiple: false,
+      });
+
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        const asset = result.assets[0];
+        await uploadFile(asset.uri, asset.mimeType || "file");
+      }
+    } catch (error) {
+      console.error("파일 선택 오류:", error);
+      Alert.alert("오류", "파일 선택 중 오류가 발생했습니다.");
+    }
+  };
+
+  const uploadFile = async (uri: string, type: string) => {
+    setUploading(true);
+    try {
+      // FormData 생성
+      const formData = new FormData();
+      
+      // React Native에서는 파일을 FormData에 추가할 때 특별한 형식 필요
+      const filename = uri.split("/").pop() || "file";
+      const match = /\.(\w+)$/.exec(filename);
+      const fileType = match ? `image/${match[1]}` : `image/jpeg`;
+      
+      formData.append("files", {
+        uri: Platform.OS === "ios" ? uri.replace("file://", "") : uri,
+        type: fileType,
+        name: filename,
+      } as any);
+
+      // API 호출
+      const requestId = await interpretationApiService.createInterpretationRequest(formData);
+      
+      if (!requestId) {
+        Alert.alert("업로드 실패", "로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+        return;
+      }
+      
+      // 검사지 목록 캐시 무효화하여 새로고침
+      await queryClient.invalidateQueries({ queryKey: ["interpretationRequests"] });
+      
+      // 현재 채팅에 검사지 컨텍스트 추가
+      Alert.alert("업로드 완료", "검사지가 업로드되었습니다. 분석이 시작되었습니다.", [
+        {
+          text: "확인",
+          onPress: () => {
+            // 현재 채팅 화면을 새로고침하여 검사지 컨텍스트 추가
+            (navigation as any).navigate("ChatDetail", {
+              reportId: String(requestId),
+            });
+          },
+        },
+      ]);
+    } catch (error) {
+      console.error("업로드 오류:", error);
+      Alert.alert("업로드 실패", "검사지 업로드 중 오류가 발생했습니다.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleLabAnalysisRequest = () => {
-    (navigation as any).navigate("Lab", { screen: "LabUpload" });
+    // 검사지 해석 목록 페이지로 이동
+    (navigation as any).navigate("Lab", { screen: "LabList" });
   };
 
   const handleChatSelect = (chatId: string) => {
@@ -378,7 +527,7 @@ export default function ChatDetailScreen() {
           }]}>
             <TouchableOpacity
               style={styles.uploadButton}
-              onPress={handleLabAnalysisRequest}
+              onPress={handleUploadButtonPress}
             >
               <Text style={styles.uploadIcon}>📎</Text>
               <Text style={styles.uploadText}>검사지</Text>
@@ -406,6 +555,58 @@ export default function ChatDetailScreen() {
           </View>
           </KeyboardAvoidingView>
         </View>
+
+        {/* 업로드 패널 (토글) - 검사지 버튼 바로 위에 표시 */}
+        {showUploadPanel && (
+          <Animated.View
+            style={[
+              styles.uploadPanel,
+              {
+                // 키보드가 있을 때는 키보드 높이 + 여백, 없을 때는 입력창 바로 위
+                // 입력창 높이: paddingTop(8) + paddingBottom(8) + minHeight(56) = 72px
+                bottom: isKeyboardVisible 
+                  ? keyboardHeight + 2  // 키보드 위에 위치 (작은 여백)
+                  : tabBarHeight + 72 + 2, // 입력창 바로 위 (검사지 버튼 바로 위)
+                opacity: slideAnim,
+                transform: [
+                  {
+                    translateY: slideAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [10, 0],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          >
+            <TouchableOpacity
+              style={styles.uploadOption}
+              onPress={handleTakePhoto}
+              disabled={uploading}
+            >
+              <Ionicons name="camera" size={24} color={colors.primary} />
+              <Text style={styles.uploadOptionText}>사진 촬영</Text>
+            </TouchableOpacity>
+            <View style={styles.uploadOptionDivider} />
+            <TouchableOpacity
+              style={styles.uploadOption}
+              onPress={handleSelectFile}
+              disabled={uploading}
+            >
+              <Ionicons name="document-text" size={24} color={colors.primary} />
+              <Text style={styles.uploadOptionText}>파일 선택</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        )}
+
+        {/* 배경 오버레이 (패널 열렸을 때) */}
+        {showUploadPanel && (
+          <TouchableOpacity
+            style={styles.overlay}
+            activeOpacity={1}
+            onPress={() => setShowUploadPanel(false)}
+          />
+        )}
 
         {/* 채팅 히스토리 패널 */}
         <ChatHistoryPanel
@@ -478,7 +679,7 @@ export default function ChatDetailScreen() {
           <View style={styles.inputContainer}>
           <TouchableOpacity
             style={styles.uploadButton}
-            onPress={handleLabAnalysisRequest}
+            onPress={handleUploadButtonPress}
           >
             <Text style={styles.uploadIcon}>📎</Text>
             <Text style={styles.uploadText}>검사지</Text>
@@ -511,6 +712,58 @@ export default function ChatDetailScreen() {
         </View>
         </KeyboardAvoidingView>
       </View>
+
+      {/* 업로드 패널 (토글) - 검사지 버튼 바로 위에 표시 */}
+      {showUploadPanel && (
+        <Animated.View
+          style={[
+            styles.uploadPanel,
+            {
+                // 키보드가 있을 때는 키보드 높이 + 여백, 없을 때는 입력창 바로 위
+                // 입력창 높이: paddingTop(8) + paddingBottom(8) + minHeight(56) = 72px
+                bottom: isKeyboardVisible 
+                  ? keyboardHeight + 2  // 키보드 위에 위치 (작은 여백)
+                  : tabBarHeight + 72 + 2, // 입력창 바로 위 (검사지 버튼 바로 위)
+              opacity: slideAnim,
+              transform: [
+                {
+                  translateY: slideAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [10, 0],
+                  }),
+                },
+              ],
+            },
+          ]}
+        >
+          <TouchableOpacity
+            style={styles.uploadOption}
+            onPress={handleTakePhoto}
+            disabled={uploading}
+          >
+            <Ionicons name="camera" size={24} color={colors.primary} />
+            <Text style={styles.uploadOptionText}>사진 촬영</Text>
+          </TouchableOpacity>
+          <View style={styles.uploadOptionDivider} />
+          <TouchableOpacity
+            style={styles.uploadOption}
+            onPress={handleSelectFile}
+            disabled={uploading}
+          >
+            <Ionicons name="document-text" size={24} color={colors.primary} />
+            <Text style={styles.uploadOptionText}>파일 선택</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      )}
+
+      {/* 배경 오버레이 (패널 열렸을 때) */}
+      {showUploadPanel && (
+        <TouchableOpacity
+          style={styles.overlay}
+          activeOpacity={1}
+          onPress={() => setShowUploadPanel(false)}
+        />
+      )}
 
       {/* 채팅 히스토리 패널 */}
       <ChatHistoryPanel
@@ -805,5 +1058,48 @@ const styles = StyleSheet.create({
   // 채팅 컨텐츠 컨테이너
   chatContentContainer: {
     flex: 1,
+  },
+  // 업로드 패널 스타일 (검사지 버튼과 비슷한 넓이)
+  uploadPanel: {
+    position: "absolute",
+    left: 20, // 입력창과 동일한 좌측 여백
+    width: 110, // 검사지 버튼과 비슷한 넓이 (아이콘 + 텍스트 + 패딩 고려)
+    backgroundColor: colors.background,
+    borderRadius: 12,
+    paddingVertical: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 8,
+    zIndex: 999,
+  },
+  uploadOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  },
+  uploadOptionDivider: {
+    height: 1,
+    backgroundColor: colors.borderLight,
+    marginHorizontal: 12,
+  },
+  uploadOptionText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.text,
+    letterSpacing: -0.4,
+  },
+  // 오버레이
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    zIndex: 998,
   },
 });
