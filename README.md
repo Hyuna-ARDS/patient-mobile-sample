@@ -294,9 +294,7 @@ RootNavigator
 
 - [docs/SETUP_GUIDE.md](./docs/SETUP_GUIDE.md) - 상세 설정 가이드
 - [docs/IMPROVEMENTS.md](./docs/IMPROVEMENTS.md) - 개선 및 추가 사항
-- [docs/KAKAO_LOGIN_GUIDE.md](./docs/KAKAO_LOGIN_GUIDE.md) - 카카오 로그인 구현 가이드
-- [docs/SECURITY_CHECKLIST.md](./docs/SECURITY_CHECKLIST.md) - 보안 체크리스트
-- [docs/GITHUB_UPLOAD_GUIDE.md](./docs/GITHUB_UPLOAD_GUIDE.md) - GitHub 업로드 가이드
+- [docs/mobile.md](./docs/mobile.md) - 모바일 앱 개발 가이드
 
 ## 🐛 문제 해결
 
@@ -333,5 +331,5 @@ npx tsc --noEmit
 ## 🔗 관련 프로젝트
 
 - [patient-web](../patient-web) - 웹 애플리케이션
-- [patient-shared](../patient-shared) - 공유 패키지
+- `@patient/shared` 패키지는 현재 레포지토리의 `packages/shared`에 포함되어 있습니다.
 
