@@ -1,0 +1,141 @@
+{
+  "list": {
+    "loading": "검사지를 불러오는 중이에요...",
+    "loadError": "목록을 불러오지 못했어요.",
+    "emptySelection": "선택된 해석 결과가 없어요."
+  },
+  "labReport": {
+    "untitled": "제목 없음",
+    "analysisCompleteTag": "[분석완료]",
+    "chatting": "나비와 대화 중",
+    "viewOptions": "치료 옵션 확인",
+    "testLabel": "(검사)",
+    "interpretationLabel": "(해석)"
+  },
+  "card": {
+    "processingTitle": "검사지 해석 중...",
+    "processingBadge": "해석 중",
+    "processingDescription": "나비가 검사지를 해석 중입니다.",
+    "completedBadge": "해석 완료",
+    "failedTitle": "해석에 실패했어요.",
+    "failedBadge": "해석 실패",
+    "failedDescription": "검사지 분석을 다시 시도해 보세요.",
+    "unableTitle": "해석 불가한 자료에요.",
+    "unableBadge": "해석 불가",
+    "unableDescription": "암 진단 검사지가 아니거나 파일이 손상되었을 수 있어요. 정상적인 암 검사지 파일로 재시도 해주세요."
+  },
+  "labels": {
+    "more": "더보기"
+  },
+  "guide": {
+    "headerTitle": "치료 가이드",
+    "collapse": "패널 접기",
+    "button": "나의 치료 옵션",
+    "optionsTitle": "나의 치료 옵션",
+    "optionsIconAlt": "치료 옵션",
+    "planSummaryTitle": "치료 플랜 요약",
+    "noValue": "정보 없음",
+    "warning": "앞으로 치료 방향은 담당 의사와 충분히 상의하시고, 새로운 임상시험이나 약제에 대한 기회도 함께 논의해 보세요.",
+    "warnIconAlt": "경고 아이콘",
+    "checkBoardAlt": "체크보드 아이콘"
+  },
+  "detail": {
+    "treatmentOptionsTitle": "이렇게 치료할 수 있어요",
+    "interpretationTitle": "검사 결과지 해석",
+    "backToList": "목록으로 돌아가기",
+    "collapse": "패널 접기",
+    "loading": "해석 결과를 불러오는 중이에요...",
+    "loadError": "해석 결과를 불러오지 못했어요.",
+    "generating": "치료 옵션을 생성 중이에요.",
+    "generatingHint": "잠시만 기다려 주세요. 완료되면 바로 보여드릴게요.",
+    "reportFallback": "검사 결과",
+    "meta": {
+      "dateHospital": "[검사정보: {{date}} / {{hospital}}]",
+      "dateOnly": "[검사정보: {{date}}]",
+      "hospitalOnly": "[검사정보: {{hospital}}]"
+    }
+  },
+  "result": {
+    "empty": "해석 결과가 아직 제공되지 않았어요.",
+    "clinicianNote": "의료진용 메모",
+    "show": "보기",
+    "hide": "숨기기"
+  },
+  "statusCheck": {
+    "completedTitle": "검사지 해석 완료",
+    "completedMessage": "검사지 해석 결과가 준비되었어요.",
+    "completedMessageWithTitle": "{{title}} 결과가 준비되었어요.",
+    "completedToast": "검사지 해석이 완료되었어요.",
+    "chatSuccess": "검사지 분석을 완료했어요!\n검사지 분석을 완료했어요!\n결과 내용을 확인해보시고, 이어서 ‘나의 치료 옵션’도 함께 살펴보세요.",
+    "failedTitle": "검사지 해석 실패",
+    "failedMessage": "검사지 해석 실패. 다시 요청해 주세요.",
+    "failedMessageWithTitle": "{{title}}. 다시 요청해 주세요.",
+    "failedToast": "검사지 해석이 실패했어요. 다시 요청해 주세요.",
+    "unableTitle": "검사지 해석 불가",
+    "unableMessage": "검사지 해석 불가. 파일을 다시 확인해 주세요.",
+    "unableMessageWithTitle": "{{title}}. 파일을 다시 확인해 주세요.",
+    "unableToast": "검사지 해석을 완료할 수 없어요. 파일을 확인해 주세요.",
+    "processingTitle": "검사지 알림",
+    "processingMessage": "검사지 알림"
+  },
+  "editDialog": {
+    "title": "검사 정보 수정",
+    "fields": {
+      "title": "제목",
+      "titlePlaceholder": "제목을 입력해주세요 (1-20자)",
+      "titleExceeded": "최대 20자까지 입력할 수 있어요.",
+      "date": "검사일",
+      "datePlaceholder": "검사일을 선택해주세요",
+      "hospital": "병원명",
+      "hospitalPlaceholder": "병원명을 입력해주세요 (1-20자)"
+    },
+    "buttons": {
+      "delete": "삭제",
+      "cancel": "취소",
+      "saving": "수정 중...",
+      "save": "수정"
+    },
+    "confirmProcessing": "분석을 취소하면 되돌릴 수 없어요. 그래도 취소 하시겠어요?",
+    "toastSuccess": "검사지 정보가 성공적으로 수정되었습니다.",
+    "toastError": "수정에 실패했습니다."
+  },
+  "moreMenu": {
+    "more": "더보기",
+    "edit": "편집",
+    "delete": "삭제"
+  },
+  "toasts": {
+    "uploadSuccess": "검사지 해석을 성공적으로 요청했습니다.",
+    "uploadError": "업로드에 실패했습니다.",
+    "deleteSuccess": "요청이 삭제되었습니다.",
+    "deleteError": "삭제에 실패했습니다."
+  },
+  "deleteDialog": {
+    "title": "정말 삭제하시겠어요?",
+    "description": "삭제하시면 다시 되돌릴 수 없어요. 그래도 삭제하시겠어요?",
+    "cancel": "취소",
+    "confirm": "삭제"
+  },
+  "emptyState": {
+    "title": "최근 검사하신 결과지가 있으신가요?",
+    "action": "를 눌러 검사지를 해석해 보세요.",
+    "help": "나비가 검사 결과를 쉽고 친절하게 설명해 드립니다.",
+    "uploadAlt": "검사지 업로드"
+  },
+  "patientView": {
+    "cannotDisplay": "해석 결과를 표시할 수 없습니다.",
+    "purpose": "이번 검사 목적",
+    "mainResults": "주요 결과와 의미",
+    "fallbackTitle": "검사 항목",
+    "resultLabel": "검사 결과",
+    "resultMissing": "결과 정보가 제공되지 않았습니다.",
+    "descriptionLabel": "설명",
+    "descriptionMissing": "설명 정보가 제공되지 않았습니다.",
+    "treatmentRelation": "치료 방법과의 관련성",
+    "treatmentMissing": "치료와의 연관성 정보가 제공되지 않았습니다.",
+    "warning": "앞으로 치료 방향은 담당 의사와 충분히 상의하시고, 새로운 임상시험이나 약제에 대한 기회도 함께 논의해 보세요.",
+    "warnIconAlt": "경고 아이콘",
+    "keyPoints": "꼭 기억해야 할 핵심 포인트",
+    "keyPointIconAlt": "포인트 아이콘"
+  }
+}

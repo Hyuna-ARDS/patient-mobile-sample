@@ -1,0 +1,29 @@
+{
+  "history": {
+    "title": "Chat",
+    "emptyTitle": "No chat history yet",
+    "emptySubtitle": "Start a new chat to begin."
+  },
+  "welcome": {
+    "naviAlt": "Onconavi character",
+    "greeting": "Good to see you, {{name}}.",
+    "line1": "Navi will help make your cancer-care journey a bit easier.",
+    "line2": "Upload your recent test results for more accurate guidance."
+  },
+  "analysis": {
+    "inProgressTitle": "We are analyzing your report.",
+    "inProgressLine1": "This may take a few minutes. Please hold on.",
+    "inProgressLine2": "Feel free to keep chatting while we work.",
+    "inProgressLine3": "We will let you know when it is done.",
+    "successDefault": "We finished analyzing your report!"
+  },
+  "suggestions": {
+    "label": "Suggested questions",
+    "subtitle": "Learn more about these topics."
+  },
+  "input": {
+    "upload": "Upload report",
+    "placeholder": "Ask Navi anything",
+    "send": "Send message"
+  }
+}

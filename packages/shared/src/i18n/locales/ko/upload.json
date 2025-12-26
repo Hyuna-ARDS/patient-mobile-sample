@@ -1,0 +1,21 @@
+{
+  "title": "검사지 업로드하기",
+  "instruction": "파일을 드래그 & 드랍하거나 업로드 버튼을 눌러주세요.",
+  "fileInfo": "png, jpg, pdf 파일을 최대 {{max}}개까지 업로드할 수 있습니다.",
+  "uploadButton": "업로드",
+  "uploadedFiles": "업로드된 파일 ({{count}}/{{max}}) {{size}}",
+  "interpret": "해석하기",
+  "cancel": "취소",
+  "errors": {
+    "invalidType": "이미지 혹은 PDF 파일만 해석할 수 있어요. 다시 업로드해 주세요.",
+    "duplicate": "이미 업로드된 파일입니다: {{names}}",
+    "maxFiles": "최대 {{max}}개의 파일을 첨부할 수 있습니다",
+    "noFile": "파일을 하나 이상 선택해주세요."
+  },
+  "icons": {
+    "close": "닫기",
+    "upload": "업로드",
+    "file": "파일",
+    "delete": "삭제"
+  }
+}

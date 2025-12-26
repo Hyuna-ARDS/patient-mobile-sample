@@ -7,14 +7,14 @@ const config = getDefaultConfig(__dirname);
 // 로컬 패키지(@patient/shared)를 인식하도록 watchFolders 추가
 config.watchFolders = [
   __dirname,
-  __dirname + '/../patient-shared',
+  __dirname + '/packages/shared',
 ];
 
 // resolver 설정
 config.resolver = {
   ...config.resolver,
   extraNodeModules: {
-    '@patient/shared': __dirname + '/../patient-shared',
+    '@patient/shared': __dirname + '/packages/shared',
   },
 };
 

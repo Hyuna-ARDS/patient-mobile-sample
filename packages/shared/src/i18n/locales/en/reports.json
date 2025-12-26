@@ -1,0 +1,141 @@
+{
+  "list": {
+    "loading": "Loading reports...",
+    "loadError": "Could not load the list.",
+    "emptySelection": "No report selected."
+  },
+  "labReport": {
+    "untitled": "Untitled",
+    "analysisCompleteTag": "[Analysis complete]",
+    "chatting": "Chatting with Navi",
+    "viewOptions": "View treatment options",
+    "testLabel": "(Test)",
+    "interpretationLabel": "(Interpretation)"
+  },
+  "card": {
+    "processingTitle": "Analyzing your report...",
+    "processingBadge": "Analyzing",
+    "processingDescription": "Navi is interpreting your report.",
+    "completedBadge": "Analysis complete",
+    "failedTitle": "Analysis failed.",
+    "failedBadge": "Analysis failed",
+    "failedDescription": "Please try analyzing again.",
+    "unableTitle": "Unable to analyze this file.",
+    "unableBadge": "Unable to analyze",
+    "unableDescription": "This may not be a cancer report or the file might be corrupted."
+  },
+  "labels": {
+    "more": "More"
+  },
+  "guide": {
+    "headerTitle": "Treatment guide",
+    "collapse": "Collapse panel",
+    "button": "My treatment options",
+    "optionsTitle": "My treatment options",
+    "optionsIconAlt": "Treatment options",
+    "planSummaryTitle": "Treatment plan summary",
+    "noValue": "No information",
+    "warning": "Discuss your treatment plan thoroughly with your doctor, and consider opportunities for new trials or medications together.",
+    "warnIconAlt": "Warning icon",
+    "checkBoardAlt": "Checklist icon"
+  },
+  "detail": {
+    "treatmentOptionsTitle": "Here’s how you can treat",
+    "interpretationTitle": "Report interpretation",
+    "backToList": "Back to list",
+    "collapse": "Collapse panel",
+    "loading": "Loading results...",
+    "loadError": "Could not load the results.",
+    "generating": "Generating treatment options.",
+    "generatingHint": "Please wait. We will show them as soon as they are ready.",
+    "reportFallback": "Report",
+    "meta": {
+      "dateHospital": "[Info: {{date}} / {{hospital}}]",
+      "dateOnly": "[Info: {{date}}]",
+      "hospitalOnly": "[Info: {{hospital}}]"
+    }
+  },
+  "result": {
+    "empty": "Interpretation is not available yet.",
+    "clinicianNote": "Clinician note",
+    "show": "Show",
+    "hide": "Hide"
+  },
+  "statusCheck": {
+    "completedTitle": "Report analysis complete",
+    "completedMessage": "The analysis result is ready.",
+    "completedMessageWithTitle": "{{title}} result is ready.",
+    "completedToast": "Report analysis completed.",
+    "chatSuccess": "We finished analyzing your report!\nWe finished analyzing your report!\nCheck the results and explore 'My treatment options' next.",
+    "failedTitle": "Report analysis failed",
+    "failedMessage": "Analysis failed. Please try again.",
+    "failedMessageWithTitle": "{{title}}. Please try again.",
+    "failedToast": "Report analysis failed. Please try again.",
+    "unableTitle": "Unable to analyze report",
+    "unableMessage": "Unable to analyze. Please check the file.",
+    "unableMessageWithTitle": "{{title}}. Please check the file.",
+    "unableToast": "Unable to complete report analysis. Please check the file.",
+    "processingTitle": "Report notice",
+    "processingMessage": "Report notice"
+  },
+  "editDialog": {
+    "title": "Edit report info",
+    "fields": {
+      "title": "Title",
+      "titlePlaceholder": "Enter a title (1-20 chars)",
+      "titleExceeded": "You can enter up to 20 characters.",
+      "date": "Test date",
+      "datePlaceholder": "Select test date",
+      "hospital": "Hospital",
+      "hospitalPlaceholder": "Enter hospital name (1-20 chars)"
+    },
+    "buttons": {
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "save": "Save"
+    },
+    "confirmProcessing": "Cancelling an in-progress analysis cannot be undone. Do you want to cancel?",
+    "toastSuccess": "Report info updated successfully.",
+    "toastError": "Failed to update."
+  },
+  "moreMenu": {
+    "more": "More",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "toasts": {
+    "uploadSuccess": "Report interpretation requested successfully.",
+    "uploadError": "Failed to upload.",
+    "deleteSuccess": "Request deleted.",
+    "deleteError": "Failed to delete."
+  },
+  "deleteDialog": {
+    "title": "Do you really want to delete it?",
+    "description": "This action cannot be undone. Do you still want to delete it?",
+    "cancel": "Cancel",
+    "confirm": "Delete"
+  },
+  "emptyState": {
+    "title": "Do you have any recent test reports?",
+    "action": "Tap to upload and interpret your report.",
+    "help": "Navi will explain your results clearly and kindly.",
+    "uploadAlt": "Upload report"
+  },
+  "patientView": {
+    "cannotDisplay": "Cannot display interpretation result.",
+    "purpose": "Purpose of this test",
+    "mainResults": "Key results and meaning",
+    "fallbackTitle": "Test item",
+    "resultLabel": "Result",
+    "resultMissing": "No result information provided.",
+    "descriptionLabel": "Description",
+    "descriptionMissing": "No description provided.",
+    "treatmentRelation": "Relation to treatment",
+    "treatmentMissing": "No relation information provided.",
+    "warning": "Discuss your treatment plan thoroughly with your doctor, and consider opportunities for new trials or medications together.",
+    "warnIconAlt": "Warning icon",
+    "keyPoints": "Key points to remember",
+    "keyPointIconAlt": "Key point icon"
+  }
+}

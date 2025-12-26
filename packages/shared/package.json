@@ -1,0 +1,40 @@
+{
+  "name": "@patient/shared",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./api/client": {
+      "types": "./dist/api/client.d.ts",
+      "default": "./dist/api/client.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "default": "./dist/config/index.js"
+    },
+    "./i18n/resources": {
+      "types": "./dist/i18n/resources.d.ts",
+      "default": "./dist/i18n/resources.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/types/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "i18next": "^23.11.5",
+    "zod": "^4.1.12"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  }
+}

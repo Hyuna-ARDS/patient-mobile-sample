@@ -1,0 +1,29 @@
+{
+  "history": {
+    "title": "채팅",
+    "emptyTitle": "채팅 히스토리가 없습니다",
+    "emptySubtitle": "새 채팅을 시작해보세요."
+  },
+  "welcome": {
+    "naviAlt": "온코나비 캐릭터",
+    "greeting": "{{name}}님, 반가워요.",
+    "line1": "암 치료 과정이 조금 쉬워질 수 있도록 나비가 도와드릴게요.",
+    "line2": "최근 검사하신 결과지를 업로드해 주시면 더 정확히 도와드릴 수 있어요."
+  },
+  "analysis": {
+    "inProgressTitle": "지금 검사지를 분석하고 있어요.",
+    "inProgressLine1": "몇 분 정도 소요될 수 있으니 조금만 기다려 주세요.",
+    "inProgressLine2": "분석 중에 자유롭게 대화를 진행하세요.",
+    "inProgressLine3": "분석이 완료되면 알려드릴게요.",
+    "successDefault": "검사지 분석을 완료했어요!"
+  },
+  "suggestions": {
+    "label": "추천질문",
+    "subtitle": "다음 내용에 대해 더 알아보세요."
+  },
+  "input": {
+    "upload": "검사지 업로드",
+    "placeholder": "나비에게 무엇이든 물어보세요",
+    "send": "메시지 전송"
+  }
+}

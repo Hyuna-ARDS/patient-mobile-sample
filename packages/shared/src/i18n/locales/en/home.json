@@ -1,0 +1,22 @@
+{
+  "home": {
+    "title": "Patient web application",
+    "description": "Integrated platform for managing patient care.",
+    "login": "Log in",
+    "aiConsult": "AI medical consult",
+    "legacyConsult": "AI medical consult",
+    "about": "About"
+  },
+  "about": {
+    "title": "About",
+    "description": "The patient web application is a unified management platform for clinicians and patients.",
+    "featuresTitle": "Key features",
+    "features": {
+      "patientInfo": "Patient information management",
+      "records": "Track medical records",
+      "booking": "Appointment scheduling",
+      "notifications": "Real-time notification service"
+    },
+    "backHome": "Back to home"
+  }
+}

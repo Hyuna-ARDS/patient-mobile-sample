@@ -1,0 +1,21 @@
+{
+  "title": "Upload reports",
+  "instruction": "Drag & drop files or click Upload.",
+  "fileInfo": "You can add up to {{max}} png, jpg, or pdf files.",
+  "uploadButton": "Upload",
+  "uploadedFiles": "Uploaded files ({{count}}/{{max}}) {{size}}",
+  "interpret": "Interpret",
+  "cancel": "Cancel",
+  "errors": {
+    "invalidType": "You can only upload image or PDF files. Please try again.",
+    "duplicate": "This file is already uploaded: {{names}}",
+    "maxFiles": "You can attach up to {{max}} files.",
+    "noFile": "Please select at least one file."
+  },
+  "icons": {
+    "close": "Close",
+    "upload": "Upload",
+    "file": "File",
+    "delete": "Delete"
+  }
+}

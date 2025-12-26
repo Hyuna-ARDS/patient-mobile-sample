@@ -1,0 +1,103 @@
+{
+  "appName": "Onconavi",
+  "language": {
+    "label": "Language",
+    "switcherAria": "Change language",
+    "korean": "한국어",
+    "english": "English"
+  },
+  "profile": {
+    "account": "Patient account",
+    "myInfo": "My info",
+    "settings": "Settings",
+    "logout": "Log out",
+    "avatarAlt": "{{name}} profile image"
+  },
+  "header": {
+    "logoAlt": "Onconavi logo",
+    "brandAlt": "Onconavi wordmark",
+    "openChatPanel": "Open chat panel",
+    "openGuidePanel": "Open guide panel"
+  },
+  "actions": {
+    "newChat": "New chat",
+    "search": "Search",
+    "collapsePanel": "Collapse panel",
+    "upload": "Upload",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "retry": "Try again",
+    "back": "Go back",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "empty": {
+    "noChatHistoryTitle": "No chat history yet",
+    "noChatHistoryDesc": "Start a new chat to begin."
+  },
+  "status": {
+    "analysisComplete": "Analysis complete",
+    "analysisTag": "[Analysis complete]",
+    "inConversation": "Chatting with Navi"
+  },
+  "home": {
+    "heroTitle": "Patient web application",
+    "heroDescription": "Integrated platform for managing patient care.",
+    "login": "Log in",
+    "aiConsult": "AI medical consult",
+    "about": "About"
+  },
+  "notifications": {
+    "countLabel": "Notifications: {{count}}",
+    "title": "Notifications",
+    "markAll": "Mark all read",
+    "close": "Close notification panel",
+    "emptyTitle": "No new notifications",
+    "emptyDescription": "You'll receive a notice when a report analysis is ready.",
+    "viewAll": "View all notifications",
+    "unread": "Unread",
+    "relative": {
+      "justNow": "Just now",
+      "minutes": "{{count}} minutes ago",
+      "hours": "{{count}} hours ago",
+      "days": "{{count}} days ago"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "cta": "Log in",
+      "emailLogin": "Log in with email",
+      "email": "Email",
+      "password": "Password",
+      "passwordPlaceholder": "Password (6+ chars)",
+      "error": "Failed to log in."
+    },
+    "signup": {
+      "title": "Sign up",
+      "cta": "Sign up",
+      "email": "Email",
+      "name": "Name",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "namePlaceholder": "Enter your name",
+      "confirmPlaceholder": "Re-enter your password",
+      "error": "Failed to sign up."
+    },
+    "sso": {
+      "kakao": "Continue with Kakao",
+      "naver": "Continue with Naver",
+      "google": "Continue with Google"
+    },
+    "sessionExpired": {
+      "title": "Session expired",
+      "description": "Your session has expired. Please log in again.",
+      "confirm": "Go to login"
+    },
+    "hero": {
+      "tagline": "From test results to treatment, you're not alone.",
+      "helper": "Smart and friendly Onco-Navi will guide you through your cancer treatment journey."
+    }
+  }
+}

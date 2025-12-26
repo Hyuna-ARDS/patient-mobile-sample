@@ -1,0 +1,22 @@
+{
+  "home": {
+    "title": "환자 웹 애플리케이션",
+    "description": "환자 관리를 위한 통합 플랫폼",
+    "login": "로그인",
+    "aiConsult": "AI 의료 상담",
+    "legacyConsult": "AI 의료 상담",
+    "about": "소개"
+  },
+  "about": {
+    "title": "소개",
+    "description": "환자 웹 애플리케이션은 의료진과 환자를 위한 통합 관리 플랫폼입니다.",
+    "featuresTitle": "주요 기능",
+    "features": {
+      "patientInfo": "환자 정보 관리",
+      "records": "진료 기록 추적",
+      "booking": "예약 관리 시스템",
+      "notifications": "실시간 알림 서비스"
+    },
+    "backHome": "홈으로 돌아가기"
+  }
+}
